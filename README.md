@@ -4,6 +4,8 @@
 > 
 > **This is a maintained fork of the original CQEngine** by Niall Gallagher.  
 > This version is published under the GroupId **`io.github.msaifasif`** to provide continued support, Java 21 compatibility, and modern dependency updates.
+>
+> Project is NOT YET PUBLISHED to the following repository. Will be pushlished soon.
 > 
 > - **Original Project:** [github.com/npgall/cqengine](https://github.com/npgall/cqengine)
 > - **This Fork:** [github.com/MSaifAsif/cqengine-next](https://github.com/MSaifAsif/cqengine-next)
