@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0-SNAPSHOT] - 2025-12-18
+## [1.0.0-SNAPSHOT] - 2025-12-18 & 2025-12-19
 
 ### Added
+- **README.md** - Comprehensive project documentation with verified links, quick start guide, migration instructions, and Docker testing guide
 - **maven-assembly-plugin 3.6.0** - Creates fat jar with all dependencies (16 MB) in ~5 seconds, full Java 21 compatibility
 - **Docker-based integration tests** - Testcontainers support for realistic database testing (30 total: 29 passing, 1 skipped)
   - `DockerSQLiteIntegrationTest` - 7 tests for SQLite persistence, concurrency, large datasets
