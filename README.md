@@ -77,7 +77,7 @@ This fork was created to:
 <dependency>
     <groupId>io.github.msaifasif</groupId>
     <artifactId>cqengine</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
