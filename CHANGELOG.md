@@ -5,14 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
----
+## [Released 1.0.0] - 2025-12-21
+- Initial release of maintained fork `io.github.msaifasif:cqengine:1.0.0` based on original `com.googlecode.cqengine:cqengine:3.6.0` with all changes from [1.0.0-SNAPSHOT](#100-snapshot---2025-12-19) included.
 
-## [1.0.0-SNAPSHOT] - 2025-12-18 & 2025-12-19
+## [1.0.0-SNAPSHOT] - 2025-12-19
 
 ### Added
-- **README.md** - Comprehensive project documentation with verified links, quick start guide, migration instructions, and Docker testing guide
+
+#### Documentation & Release Management
+- **RELEASE_CHECKLIST.md** - Comprehensive release preparation guide with Maven Central deployment instructions
+- **README.md** - Complete project documentation with verified links, quick start guide, migration instructions, and Docker testing guide
+- **nexus-staging-maven-plugin 1.7.0** - Essential plugin for automated Maven Central deployment via OSSRH
+
+#### Build & Testing
 - **maven-assembly-plugin 3.6.0** - Creates fat jar with all dependencies (16 MB) in ~5 seconds, full Java 21 compatibility
-- **Docker-based integration tests** - Testcontainers support for realistic database testing (30 total: 29 passing, 1 skipped)
+- **Docker-based integration tests** - Testcontainers support for OS-independent testing (30 total: 29 passing, 1 skipped)
   - `DockerSQLiteIntegrationTest` - 7 tests for SQLite persistence, concurrency, large datasets
   - `DockerDiskPersistenceIntegrationTest` - 8 tests for disk persistence, compaction, WAL mode
   - `DockerOffHeapPersistenceIntegrationTest` - 8 tests for off-heap memory, container limits, concurrent access
@@ -21,102 +28,143 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Real filesystem I/O, native memory, and multi-tier architecture testing
   - **Known Limitation**: `testCompositePersistence_AllThreeLayers` skipped due to StackOverflow when combining DiskPersistence + OffHeapIndex on same primary key (SQLite recursion issue)
 
-### Changed
-- **Project rebranded** to "CQEngine Next - Maintained Fork" with repository moved to `cqengine-next`
-
-### Fixed
-- **Build system** - Replaced problematic maven-shade-plugin with maven-assembly-plugin to resolve infinite loop issue
-
-### Dependencies
-- **Testcontainers 1.19.3** - Added for Docker-based integration testing
-- **SLF4J Simple 1.7.36** - Added for Testcontainers logging (test scope only)
-
-### Requirements for Docker Tests
-- **Docker Desktop** or **Docker Engine** must be installed and running
-- To run Docker tests: `mvn test -Dtest=Docker*IntegrationTest`
-- **Troubleshooting Docker connection issues:**
-  1. Verify Docker is running: `docker ps` should show output without errors
-  2. Check Docker socket: `ls -la /var/run/docker.sock` (or `~/.docker/run/docker.sock` on macOS)
-  3. Restart Docker Desktop if tests fail with "Could not find valid Docker environment"
-  4. Check Docker Desktop settings: Enable "Expose daemon on tcp://localhost:2375 without TLS" if needed
-  5. Configuration file created: `src/test/resources/.testcontainers.properties`
-  6. Set DOCKER_HOST if needed: `export DOCKER_HOST=unix:///var/run/docker.sock`
-
----
-
-## [1.0.0-SNAPSHOT] - 2025-12-17
-
-### 🎉 Major Release - Maintained Fork Initialized
-
-First release of the maintained fork with Java 21 support and modern dependencies.
-
-### Added
-- **NOTICE** file for Apache 2.0 compliance with proper attribution to original author Niall Gallagher
-- **README.md** with maintenance notice, quick start guide, and migration instructions
-- **Distribution management** for Maven Central (OSSRH) deployment
-- Verification scripts for build validation and rebranding checks
+#### License Management
+- **License headers** - Applied "Copyright 2025 Saif Asif" to 13 files that had no existing license header
+  - `src/main/java/com/googlecode/cqengine/codegen/MemberFilter.java`
+  - `src/main/java/com/googlecode/cqengine/persistence/support/serialization/PojoSerializer.java`
+  - `src/main/java/com/googlecode/cqengine/persistence/support/serialization/KryoSerializer.java`
+  - `src/main/java/com/googlecode/cqengine/persistence/support/serialization/PersistenceConfig.java`
+  - `src/test/java/com/googlecode/cqengine/query/comparative/LongestPrefixTest.java`
+  - `src/main/java/com/googlecode/cqengine/query/comparative/Max.java`
+  - `src/main/java/com/googlecode/cqengine/query/comparative/Min.java`
+  - `src/main/java/com/googlecode/cqengine/query/comparative/SimpleComparativeQuery.java`
+  - `src/main/java/com/googlecode/cqengine/query/comparative/LongestPrefix.java`
+  - `src/main/java/com/googlecode/cqengine/query/simple/StringIsPrefixOf.java`
+  - `src/main/java/com/googlecode/cqengine/query/ComparativeQuery.java`
+  - `src/main/java/com/googlecode/cqengine/metadata/KeyFrequency.java`
+  - `src/main/java/com/googlecode/cqengine/metadata/AttributeMetadata.java`
 
 ### Changed
-- **Maven GroupId**: `com.googlecode.cqengine` → `io.github.msaifasif`
-- **Version**: `3.6.1-SNAPSHOT` → `1.0.0-SNAPSHOT` (semantic versioning)
-- **Project URL**: Updated to `https://github.com/MSaifAsif/cqengine-next`
-- **Java Target**: Upgraded from JDK 1.8 → JDK 21
-- **Maven Plugins**: Updated 8 plugins for Java 21 compatibility (compiler, surefire, javadoc, jacoco, etc.)
-- **Dependencies**: Updated 11 dependencies including ByteBuddy 1.14.11, EqualsVerifier 3.16.1, SQLite JDBC 3.45.0.0
+
+#### Java Version & Compilation
+- **Java version requirement** - Updated from Java 8 to Java 21
+- **Maven compiler plugin** - Updated to 3.11.0 with Java 21 target
+- **Package namespace** - Maven GroupId changed from `com.googlecode.cqengine` to `io.github.msaifasif` (Java packages unchanged for compatibility)
+
+#### Release Plugins (2025-12-19)
+- **maven-source-plugin** - Updated from 3.3.0 to 3.3.1 (latest stable)
+- **maven-javadoc-plugin** - Updated from 3.6.0 to 3.10.1 (latest stable, Java 21 compatible)
+- **maven-gpg-plugin** - Retained at 3.2.8 (latest stable)
+- **maven-release-plugin** - Updated from 2.5.3 to 3.1.1 (major version update for modern Maven)
+- **license-maven-plugin** - Replaced deprecated `maven-license-plugin 1.10.b1` with modern `license-maven-plugin 4.6`
+  - Configuration updated to use `skipExistingHeaders=true` to preserve original author credits
+  - New files get "Copyright 2025 Saif Asif", existing files retain "Copyright 2012-2015 Niall Gallagher"
+  - Email updated to maintainer's contact
+- **License header template** - Updated `src/etc/header.txt` to use variables (${owner}, ${year}) for dynamic substitution
+
+#### Dependency Updates (2025-12-17)
+- **ByteBuddy** - Updated from 1.9.10 to 1.14.11 (Java 21 bytecode support, class file version 65)
+- **EqualsVerifier** - Updated from 3.15.4 to 3.16.1 (Java 21 compatibility, fixes class file major version 65 error)
+- **SQLite JDBC** - Updated from 3.42.0.0 to 3.45.0.0 (CVE-2023-32697 security fix, ARM64 Mac support)
+- **Kryo Serialization** - Updated from 4.0.0 to 5.0.0-RC1 (Java 21 support, modern serialization)
+- **Javassist** - Updated from 3.29.0-GA to 3.30.2-GA (latest stable release)
+- **Testcontainers** - Added 1.19.3 for Docker-based integration testing
 
 ### Fixed
-- **EqualsVerifier** - Java 21 bytecode compatibility (updated to 3.16.1 with ByteBuddy 1.14.11)
-- **SQLite** - Native library loading on Mac ARM64 (updated to 3.45.0.0, fixes CVE-2023-32697)
-- **Lambda Type Erasure** - Generic type resolution in Java 21 (replaced lambdas with explicit attributes)
-- **ReflectiveAttribute** - Equality verification with EqualsVerifier 3.16.1
+
+#### Test Compatibility Issues
+- **EqualsVerifier compatibility** - Fixed "Unsupported class file major version 65" error in `QueriesEqualsAndHashCodeTest`
+- **SQLite native library** - Fixed ARM64 Mac compatibility (resolved "No native library found for os.name=Mac and os.arch=aarch64" error)
+- **Lambda type erasure** - Fixed "Could not resolve sufficient generic type information" in `DiskSharedCacheConcurrencyTest`
+- **ReflectiveAttribute equality** - Fixed reflexivity test by suppressing `Warning.REFERENCE_EQUALITY` for intentional field comparison
+- **Docker test logging** - Configured SLF4J with Simple Logger to eliminate "Failed to load StaticLoggerBinder" warnings
 
 ### Removed
-- **maven-shade-plugin** - Replaced with maven-assembly-plugin due to infinite loop with Java 21 (see v1.0.1)
 
-### Known Issues
-- **maven-shade-plugin** causes infinite loop with Java 21 - replaced with maven-assembly-plugin in v1.0.1
+#### Build Configuration
+- **maven-shade-plugin** - Commented out due to infinite loop issue on Java 21, replaced with maven-assembly-plugin
+  - Shade plugin was hanging indefinitely during dependency analysis phase
+  - Assembly plugin provides equivalent fat jar creation without relocation (acceptable for most use cases)
 
----
+### Security
 
-## 🔄 Backward Compatibility
-
-**100% API Compatible** - All Java packages (`com.googlecode.cqengine.*`), APIs, and runtime behavior unchanged. Only Maven coordinates changed.
-
-**Migration**: Update GroupId from `com.googlecode.cqengine` to `io.github.msaifasif`. No code changes required.
-
----
-
-## 📋 Build & Test
-
-**Build**: `mvn clean package -DskipTests` (~4 seconds)  
-**Artifacts**: Standard jar (1 MB), sources jar, javadoc jar  
-**Test Results**: All compilation successful (232 main + 155 test files), all tests passing
+- **CVE-2023-32697** - Fixed by updating SQLite JDBC from 3.42.0.0 to 3.45.0.0
+  - Severity: Moderate
+  - Impact: Potential security vulnerability in SQLite JDBC driver
+  - Resolution: Upgraded to patched version 3.45.0.0
 
 ---
 
-## 📚 Dependencies
+## Maintenance Notice
 
-**Runtime** (7): concurrent-trees 2.6.1, javassist 3.30.2-GA, sqlite-jdbc 3.45.0.0, kryo 5.0.0-RC1, kryo-serializers 0.45, antlr4-runtime 4.10.1, typetools 0.6.1
+This is a maintained fork of the original [CQEngine](https://github.com/npgall/cqengine) project by Niall Gallagher.
 
-**Test** (6): junit 4.13.1, mockito 2.27.0, equalsverifier 3.16.1, byte-buddy 1.14.11, guava-testlib 27.1-jre, junit-dataprovider 1.13.1
+### Original Project Information
+- **Original Author**: Niall Gallagher
+- **Original Repository**: https://github.com/npgall/cqengine
+- **Original GroupId**: com.googlecode.cqengine
+- **License**: Apache License 2.0
+
+### This Fork
+- **Maintainer**: Saif Asif
+- **Repository**: https://github.com/MSaifAsif/cqengine-next
+- **GroupId**: io.github.msaifasif
+- **Purpose**: Continued maintenance, Java 21+ support, security updates, and modern tooling
+
+### Attribution
+
+All credit for the original CQEngine architecture, design, and implementation goes to Niall Gallagher and the original contributors. This fork maintains backward compatibility while adding:
+- Modern Java support (Java 21)
+- Updated dependencies with security fixes
+- Docker-based integration testing
+- Continued maintenance and support
 
 ---
 
-## 🔐 Security
+## Migration Guide
 
-- **CVE-2023-32697** (SQLite) - Fixed in sqlite-jdbc 3.45.0.0
-- **JUnit** - Updated to 4.13.1 with security fixes
-- **License** - Apache 2.0 compliance maintained with proper attribution
+### From Original CQEngine (com.googlecode.cqengine)
+
+**Good News**: Migration is trivial! Only the Maven coordinates change.
+
+#### Before (Original)
+```xml
+<dependency>
+    <groupId>com.googlecode.cqengine</groupId>
+    <artifactId>cqengine</artifactId>
+    <version>3.6.0</version>
+</dependency>
+```
+
+#### After (This Fork)
+```xml
+<dependency>
+    <groupId>io.github.msaifasif</groupId>
+    <artifactId>cqengine</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+**No code changes required!** All package names (`com.googlecode.cqengine.*`) remain the same for full backward compatibility.
+
+### System Requirements
+
+- **Minimum Java Version**: Java 21 (LTS)
+- **Maven**: 3.6.0 or higher
+- **Docker**: Optional, only required for running Docker-based integration tests
 
 ---
 
-## 📝 Notes
+## Links
 
-**For Users**: Update Maven coordinates only - no code changes needed. Java 21+ required.
-
-**For Contributors**: Preserve backward compatibility, add @author attribution, follow Keep a Changelog format, run tests before committing.
+- **Repository**: https://github.com/MSaifAsif/cqengine-next
+- **Issues**: https://github.com/MSaifAsif/cqengine-next/issues
+- **Discussions**: https://github.com/MSaifAsif/cqengine-next/discussions
+- **Original Project**: https://github.com/npgall/cqengine
+- **Maven Central**: https://central.sonatype.com/artifact/io.github.msaifasif/cqengine
 
 ---
 
-**For changes in the original CQEngine project (versions < 3.6.1), see the [original repository](https://github.com/npgall/cqengine).**
+[Unreleased]: https://github.com/MSaifAsif/cqengine-next/compare/v1.0.0...HEAD
+[1.0.0-SNAPSHOT]: https://github.com/MSaifAsif/cqengine-next/releases/tag/v1.0.0-SNAPSHOT
 
