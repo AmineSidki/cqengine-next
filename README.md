@@ -8,7 +8,7 @@
 ![Java Version](https://img.shields.io/badge/Java-8+-blue?logo=openjdk)
 ![Last Commit](https://img.shields.io/github/last-commit/MSaifAsif/cqengine-next)
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
-![Stars](https://img.shields.io/github/stars/MSaifAsif/cqengine?style=social)
+![Stars](https://img.shields.io/github/stars/MSaifAsif/cqengine-next?style=social)
 
 > **Note**: This is a maintained fork of the original [CQEngine](https://github.com/npgall/cqengine) by Niall Gallagher. This version is published under the GroupId `io.github.msaifasif` to provide continued support and updates for Java 21+.
 
