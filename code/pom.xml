@@ -313,10 +313,11 @@
             <version>1.13.1</version>
             <scope>test</scope>
         </dependency>
+        <!--@author AmineSidki-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava-testlib</artifactId>
-            <version>27.1-jre</version>
+            <version>33.5.0-jre</version>
             <scope>test</scope>
         </dependency>
 

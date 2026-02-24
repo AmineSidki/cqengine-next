@@ -93,6 +93,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Impact: Potential security vulnerability in SQLite JDBC driver
   - Resolution: Upgraded to patched version 3.45.0.0
 
+- **CVE-2023-2976** - Fixed by updating guava-testlib from 27.1-jre to 33.5.0-jre
+- **CVE-2020-8908** - Fixed by updating guava-testlib from 27.1-jre to 33.5.0-jre
 ---
 
 ## Maintenance Notice
