@@ -313,7 +313,6 @@
             <version>1.13.1</version>
             <scope>test</scope>
         </dependency>
-        <!--@author AmineSidki-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava-testlib</artifactId>
